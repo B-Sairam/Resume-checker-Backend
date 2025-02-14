@@ -1,0 +1,25 @@
+# Virtual environments
+venv/
+env/
+
+# Environment variables
+*.env
+
+# Byte-compiled / Cached files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Logs and databases
+*.log
+*.sqlite3
+instance/
+
+# VS Code and PyCharm settings (optional)
+.vscode/
+.idea/
+
+# Dependencies
+*.egg-info/
+pip-log.txt
