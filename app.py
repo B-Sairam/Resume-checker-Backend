@@ -5,24 +5,13 @@ import google.generativeai as genai
 from os import getenv
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS for all routes
-
-
-
-"""
-Install an additional SDK for JSON schema support Google AI Python SDK
-
-$ pip install google.ai.generativelanguage
-"""
-
-import os
-import google.generativeai as genai
-from google.ai.generativelanguage_v1beta.types import content
+CORS(app, resources={r"/*": {"origins": getenv("CLIENT_IP")}})
 
 
 
 
-# Configure Gemini API
+
+# configure Gemini API
 genai.configure(api_key=getenv("GEMINI_API_KEY"))
 
 def extract_text_from_pdf(pdf_file):
@@ -53,7 +42,7 @@ def analyze_resume():
     else:
         return jsonify({'error': 'No resume file uploaded'}), 400  # Bad Request
 
-    # Create a prompt for the AI model
+    #prompt for the AI model
     prompt = f"""
     Analyze the following resume against this job description.
 
@@ -120,7 +109,7 @@ def analyze_resume():
 
 @app.route("/")
 def index():
-        print(getenv("GEMINI_API_KEY"))
+        print(getenv("CLIENT_IP"))
         return "Hello, World!"
 
 
