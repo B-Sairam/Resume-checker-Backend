@@ -2,16 +2,17 @@ from flask import Flask, json, request, jsonify
 import pdfplumber
 from flask_cors import CORS
 import google.generativeai as genai
+from google.ai.generativelanguage_v1beta.types import content
 from os import getenv
 
 app = Flask(__name__)
-CORS(app, resources={r"/*": {"origins": getenv("CLIENT_IP")}})
+CORS(app)  # Enable CORS for all routes
 
 
 
 
 
-# configure Gemini API
+# Configure Gemini API
 genai.configure(api_key=getenv("GEMINI_API_KEY"))
 
 def extract_text_from_pdf(pdf_file):
@@ -42,7 +43,7 @@ def analyze_resume():
     else:
         return jsonify({'error': 'No resume file uploaded'}), 400  # Bad Request
 
-    #prompt for the AI model
+    # Create a prompt for the AI model
     prompt = f"""
     Analyze the following resume against this job description.
 
@@ -109,7 +110,7 @@ def analyze_resume():
 
 @app.route("/")
 def index():
-        print(getenv("CLIENT_IP"))
+        print(getenv("GEMINI_API_KEY"))
         return "Hello, World!"
 
 
